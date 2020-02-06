@@ -1,9 +1,26 @@
-import React from 'react'
+import React, { ReactNode } from 'react'
 import './custom-button.styles.scss'
 
-const CustomButton = ({ children, ...otherProps }) => (
-  <button className="custom-button" {...otherProps}>
-    Button
+interface ButtonProps {
+  children: ReactNode
+  type?: 'button' | 'submit' | 'reset' | undefined
+  onClick?: (() => void) | undefined
+  className?: string
+  isGoogleSignIn?: boolean
+}
+
+const CustomButton: React.FC<ButtonProps> = ({
+  children,
+  isGoogleSignIn,
+  ...otherProps
+}) => (
+  <button
+    className={`${isGoogleSignIn
+      ? 'google-sign-in'
+      : ''} custom-button`}
+    {...otherProps}
+  >
+    {children}
   </button>
 )
 
