@@ -7,15 +7,19 @@ interface ButtonProps {
   onClick?: (() => void) | undefined
   className?: string
   isGoogleSignIn?: boolean
+  inverted?: boolean
 }
 
 const CustomButton: React.FC<ButtonProps> = ({
   children,
   isGoogleSignIn,
+  inverted,
   ...otherProps
 }) => (
   <button
-    className={`${isGoogleSignIn
+    className={`
+    ${inverted ? 'inverted' : ''}
+    ${isGoogleSignIn
       ? 'google-sign-in'
       : ''} custom-button`}
     {...otherProps}
