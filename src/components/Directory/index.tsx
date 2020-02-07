@@ -1,2 +1,2 @@
-import Directory from './directory.component'
+import Directory from './Directory'
 export default Directory

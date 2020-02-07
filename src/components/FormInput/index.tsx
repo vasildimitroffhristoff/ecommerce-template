@@ -1,2 +1,2 @@
-import FormInput from './form-input.component'
+import FormInput from './FormInput'
 export default FormInput

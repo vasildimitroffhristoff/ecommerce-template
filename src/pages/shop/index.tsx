@@ -1,2 +1,2 @@
-import Shop from './shop.component'
+import Shop from './Shop'
 export default Shop

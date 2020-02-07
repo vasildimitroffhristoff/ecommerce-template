@@ -1,4 +1,4 @@
-import PreviewCollection from '../../components/preview-collection'
+import PreviewCollection from '../../components/CollectionPreview'
 import React from 'react'
 import SHOP_DATA from './shopData'
 

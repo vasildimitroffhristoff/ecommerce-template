@@ -8,7 +8,7 @@ import HomePage from './pages/homepage'
 import React from 'react'
 import ShopPage from './pages/shop'
 import Auth from './pages/auth'
-import Header from './components/header'
+import Header from './components/Header'
 import {
   auth,
   createUserProfileDocument

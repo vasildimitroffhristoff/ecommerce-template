@@ -1,2 +1,2 @@
-import SignUp from './sign-up.component'
+import SignUp from './SignUp'
 export default SignUp

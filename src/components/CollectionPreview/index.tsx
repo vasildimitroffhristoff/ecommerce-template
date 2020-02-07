@@ -1,2 +1,2 @@
-import PreviewCollection from './preview-collection.component'
+import PreviewCollection from './CollectionPreview'
 export default PreviewCollection

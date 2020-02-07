@@ -1,2 +1,2 @@
-import SignIn from './sign-in.component'
+import SignIn from './SignIn'
 export default SignIn
