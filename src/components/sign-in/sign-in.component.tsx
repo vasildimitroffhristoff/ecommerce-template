@@ -1,6 +1,6 @@
 import React from 'react'
 import FormInput from '../form-input'
-import CustomButton from '../custom-button'
+import CustomButton from '../CustomButton'
 import './sign-in.styles.scss'
 import {
   signInWithGoogle,

@@ -1,6 +1,6 @@
 import './preview-component.styles.scss'
 
-import CollectionItem from '../collection-item'
+import CollectionItem from '../CollectionItem'
 import React from 'react'
 
 interface Item {

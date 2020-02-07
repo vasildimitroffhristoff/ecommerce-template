@@ -3,6 +3,7 @@ import { ReactComponent as Logo } from '../../assets/logo.svg'
 import './header.styles.scss'
 import React, { Fragment } from 'react'
 import { auth } from '../../firebase/firebase.utils'
+import { connect } from 'react-redux'
 
 const Header = ({ currentUser }) => {
   return (
@@ -18,14 +19,14 @@ const Header = ({ currentUser }) => {
           CONTACT
         </Link>
         {currentUser ? (
-          <React.Fragment>
+          <Fragment>
             <div
               className="option"
               onClick={() => auth.signOut()}
             >
               SIGN OUT
             </div>
-          </React.Fragment>
+          </Fragment>
         ) : (
           <Link className="option" to="/signin">
             SIGN IN
@@ -36,4 +37,8 @@ const Header = ({ currentUser }) => {
   )
 }
 
-export default Header
+const mapStateToProps = (state) => ({
+  currentUser: state.user.currentUser
+})
+
+export default connect(mapStateToProps)(Header)
