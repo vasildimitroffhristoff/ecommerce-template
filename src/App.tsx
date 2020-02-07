@@ -6,6 +6,7 @@ import {
 } from 'react-router-dom'
 
 import HomePage from './pages/homepage'
+import Checkout from './pages/checkout'
 import React from 'react'
 import ShopPage from './pages/shop'
 import Auth from './pages/auth'
@@ -16,6 +17,7 @@ import {
   auth,
   createUserProfileDocument
 } from './firebase/firebase.utils'
+import { selectCurrentUser } from './redux/user/user.selectors'
 
 type UserRefType =
   | firebase.firestore.DocumentReference<
@@ -89,6 +91,7 @@ class App extends React.Component<Props> {
                   <Auth />
                 )}
             />
+            <Route path="/checkout" component={Checkout} />
           </Switch>
         </div>
       </Router>
@@ -100,8 +103,8 @@ const mapDispatchToProps = (dispatch) => ({
   setCurrentUser: (user) => dispatch(setCurrentUser(user))
 })
 
-const mapStateToProps = ({ user }) => ({
-  currentUser: user.currentUser
+const mapStateToProps = (state) => ({
+  currentUser: selectCurrentUser(state)
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(

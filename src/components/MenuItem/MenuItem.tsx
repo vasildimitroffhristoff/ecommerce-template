@@ -32,7 +32,7 @@ const MenuItem: React.FC<RouteComponentProps & IProps> = ({
     />
     <div className="content">
       <h1 className="title">{title}</h1>
-      <span>shop now</span>
+      <span className="subtitle">shop now</span>
     </div>
   </div>
 )
