@@ -9,17 +9,45 @@ import React from 'react'
 import ShopPage from './pages/shop'
 import Auth from './pages/auth'
 import Header from './components/header'
-import { auth } from './firebase/firebase.utils'
+import {
+  auth,
+  createUserProfileDocument
+} from './firebase/firebase.utils'
+
+type UserRefType =
+  | firebase.firestore.DocumentReference<
+      firebase.firestore.DocumentData
+    >
+  | undefined
+
+type UnsubscribeType = firebase.Unsubscribe | null
 
 class App extends React.Component {
   state = { currentUser: null }
 
-  unsubscribeFromAuth: firebase.Unsubscribe | null = null
+  unsubscribeFromAuth: UnsubscribeType = null
 
   componentDidMount() {
     this.unsubscribeFromAuth = auth.onAuthStateChanged(
-      (user) => {
-        this.setState({ currentUser: user })
+      async (userAuth) => {
+        if (userAuth) {
+          const userRef: UserRefType = await createUserProfileDocument(
+            userAuth
+          )
+
+          userRef!.onSnapshot((snapShot) => {
+            this.setState({
+              currentUser: {
+                id: snapShot.id,
+                ...snapShot.data()
+              }
+            })
+
+            console.log(this.state)
+          })
+        }
+
+        this.setState({ currentUser: userAuth })
       }
     )
   }

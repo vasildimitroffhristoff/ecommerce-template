@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import { ReactComponent as Logo } from '../../assets/logo.svg'
 import './header.styles.scss'
-import React from 'react'
+import React, { Fragment } from 'react'
 import { auth } from '../../firebase/firebase.utils'
 
 const Header = ({ currentUser }) => {
@@ -18,12 +18,14 @@ const Header = ({ currentUser }) => {
           CONTACT
         </Link>
         {currentUser ? (
-          <div
-            className="option"
-            onClick={() => auth.signOut()}
-          >
-            SIGN OUT
-          </div>
+          <React.Fragment>
+            <div
+              className="option"
+              onClick={() => auth.signOut()}
+            >
+              SIGN OUT
+            </div>
+          </React.Fragment>
         ) : (
           <Link className="option" to="/signin">
             SIGN IN
