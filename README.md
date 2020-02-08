@@ -32,3 +32,12 @@ The sources of the project follows this structure:
       index.tsx
       
 ```
+
+### Todo:
+
+- Typescript improvements
+- Write tests
+- ~~Refactor to use React hooks~~
+- Performance optimization *(lazy loading, suspense, memo)*
+- Serve data from Firebase
+- Stripe payments
