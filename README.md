@@ -35,9 +35,9 @@ The sources of the project follows this structure:
 
 ### Todo:
 
-- Typescript improvements
-- Write tests
-- ~~Refactor to use React hooks~~
-- Performance optimization *(lazy loading, suspense, memo)*
-- Serve data from Firebase
-- Stripe payments
+- [ ] Typescript improvements
+- [ ] Write tests
+- [x] ~~Refactor to use React hooks~~
+- [ ] Performance optimization *(lazy loading, suspense, memo)*
+- [ ] Serve data from Firebase
+- [ ] Stripe payments
