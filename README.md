@@ -1,10 +1,7 @@
 # Ecommerce Template
 
 Techologies used: 
-- React, 
-- Redux, 
-- TypeScript, 
-- Firebase
+- React, Redux,TypeScript, Firebase
 
 []()
 
