@@ -3,7 +3,7 @@
 Techologies used: 
 - React, Redux,TypeScript, Firebase
 
-![Image](https://res.cloudinary.com/dctggpdo6/image/upload/v1581147067/git%20repos/Screenshot_from_2020-02-08_09-26-53.png)
+![Image](https://res.cloudinary.com/dctggpdo6/image/upload/v1581147700/git%20repos/Screenshot_from_2020-02-08_09-41-14.png)
 
 ### Directory Structure
 
