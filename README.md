@@ -27,7 +27,7 @@ The sources of the project follows this structure:
  /pages
     /{page}
       {page}.tsx
-      {page}.styles.tsx
+      {page}.styles.scss
       types.tsx
       index.tsx
       
