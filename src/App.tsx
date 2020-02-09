@@ -7,7 +7,7 @@ import {
 
 import HomePage from './pages/homepage'
 import Checkout from './pages/checkout'
-import React from 'react'
+import React, { useEffect } from 'react'
 import ShopPage from './pages/shop'
 import Auth from './pages/auth'
 import Header from './components/Header'
@@ -42,61 +42,59 @@ interface Props {
   currentUser: UserType
 }
 
-class App extends React.Component<Props> {
-  unsubscribeFromAuth: UnsubscribeType = null
+const App: React.FC<Props> = ({
+  setCurrentUser,
+  currentUser
+}) => {
+  useEffect(
+    () => {
+      let unsubscribeFromAuth: UnsubscribeType = null
+      unsubscribeFromAuth = auth.onAuthStateChanged(
+        async (userAuth) => {
+          if (userAuth) {
+            const userRef: UserRefType = await createUserProfileDocument(
+              userAuth
+            )
 
-  componentDidMount() {
-    const { setCurrentUser } = this.props
-    this.unsubscribeFromAuth = auth.onAuthStateChanged(
-      async (userAuth) => {
-        if (userAuth) {
-          const userRef: UserRefType = await createUserProfileDocument(
-            userAuth
-          )
-
-          userRef!.onSnapshot((snapShot) => {
-            setCurrentUser({
-              id: snapShot.id,
-              ...snapShot.data()
+            userRef!.onSnapshot((snapShot) => {
+              setCurrentUser({
+                id: snapShot.id,
+                ...snapShot.data()
+              })
             })
-          })
+          }
+
+          setCurrentUser(userAuth)
         }
+      )
 
-        setCurrentUser(userAuth)
+      return () => {
+        if (unsubscribeFromAuth) {
+          unsubscribeFromAuth()
+        }
       }
-    )
-  }
+    },
+    [ setCurrentUser ]
+  )
 
-  componentWillUnmount() {
-    if (this.unsubscribeFromAuth) {
-      this.unsubscribeFromAuth()
-    }
-  }
-
-  render() {
-    return (
-      <Router>
-        <div className="App">
-          <Header />
-          <Switch>
-            <Route exact path="/" component={HomePage} />
-            <Route path="/shop" component={ShopPage} />
-            <Route
-              exact
-              path="/signin"
-              render={() =>
-                this.props.currentUser ? (
-                  <Redirect to="" />
-                ) : (
-                  <Auth />
-                )}
-            />
-            <Route path="/checkout" component={Checkout} />
-          </Switch>
-        </div>
-      </Router>
-    )
-  }
+  return (
+    <Router>
+      <div className="App">
+        <Header />
+        <Switch>
+          <Route exact path="/" component={HomePage} />
+          <Route path="/shop" component={ShopPage} />
+          <Route
+            exact
+            path="/signin"
+            render={() =>
+              currentUser ? <Redirect to="" /> : <Auth />}
+          />
+          <Route path="/checkout" component={Checkout} />
+        </Switch>
+      </div>
+    </Router>
+  )
 }
 
 const mapDispatchToProps = (dispatch) => ({
