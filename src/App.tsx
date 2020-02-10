@@ -5,11 +5,7 @@ import {
   Redirect
 } from 'react-router-dom'
 
-import HomePage from './pages/homepage'
-import Checkout from './pages/checkout'
-import React, { useEffect } from 'react'
-import ShopPage from './pages/shop'
-import Auth from './pages/auth'
+import React, { useEffect, lazy, Suspense } from 'react'
 import Header from './components/Header'
 import { connect } from 'react-redux'
 import { setCurrentUser } from './redux/user/user.actions'
@@ -18,24 +14,18 @@ import {
   createUserProfileDocument
 } from './firebase/firebase.utils'
 import { selectCurrentUser } from './redux/user/user.selectors'
+import {
+  UserRefType,
+  UnsubscribeType,
+  UserType
+} from './AppTypes'
 
-type UserRefType =
-  | firebase.firestore.DocumentReference<
-      firebase.firestore.DocumentData
-    >
-  | undefined
+import ErrorBoundary from './components/ErrorBoundary'
 
-type UnsubscribeType = firebase.Unsubscribe | null
-
-type UserType =
-  | {
-      id: string
-      cretedAt?: string
-      displayName?: string
-      email?: string
-    }
-  | firebase.User
-  | null
+const HomePage = lazy(() => import('./pages/homepage'))
+const ShopPage = lazy(() => import('./pages/shop'))
+const Auth = lazy(() => import('./pages/auth'))
+const Checkout = lazy(() => import('./pages/checkout'))
 
 interface Props {
   setCurrentUser: (currentUser: UserType) => void
@@ -82,15 +72,26 @@ const App: React.FC<Props> = ({
       <div className="App">
         <Header />
         <Switch>
-          <Route exact path="/" component={HomePage} />
-          <Route path="/shop" component={ShopPage} />
-          <Route
-            exact
-            path="/signin"
-            render={() =>
-              currentUser ? <Redirect to="" /> : <Auth />}
-          />
-          <Route path="/checkout" component={Checkout} />
+          <ErrorBoundary>
+            <Suspense fallback={<div>Loading...</div>}>
+              <Route exact path="/" component={HomePage} />
+              <Route path="/shop" component={ShopPage} />
+              <Route
+                exact
+                path="/signin"
+                render={() =>
+                  currentUser ? (
+                    <Redirect to="" />
+                  ) : (
+                    <Auth />
+                  )}
+              />
+              <Route
+                path="/checkout"
+                component={Checkout}
+              />
+            </Suspense>
+          </ErrorBoundary>
         </Switch>
       </div>
     </Router>
